@@ -13,7 +13,7 @@ Hania.AutoIncluder is a simple little library built to solve a Include Relative 
 
 ### Where can I get it?
 
-First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [Hania.AutoIncluder](https://www.nuget.org/packages/HaniaMapper/) from the package manager console:
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [Hania.AutoIncluder](https://www.nuget.org/packages/hania.AutoIncluder/) from the package manager console:
 
 ```
 PM> Install-Package Hania.AutoIncluder 
