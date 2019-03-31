@@ -25,21 +25,24 @@ PM> Install-Package Hania.AutoIncluder
 #### First, Create Book Model Class 
 
 ```csharp
-using System;
+using System.Collections;
+using System.Collections.Generic;
+using HaniaIncluder.Attributes;
 
-namespace HaniaMapperSample
+namespace AutoIncluder.Models
 {
-  public  class Book
-  {
-
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Discreption { get; set; }
-    public DateTime RegisterDate { get; set; }
-
-    public int AuthorId { get; set; }
-    public Author Author { get; set; }
-  }
+    public class Book
+    {
+        public int Id { get; set; }
+        public string Descreption { get; set; }
+        public string Title { get; set; }
+        
+        //Important : For Include Most be set [Include] Attribute To Property
+        [Include]
+        public Author Author  { get; set; }
+        public int AuthorId { get; set; }
+        
+    }
 }
 ```
 
@@ -47,143 +50,91 @@ And Author Model Class
 
 
 ```csharp
-using System;
+using System.Collections;
+using System.Collections.Generic;
+using HaniaIncluder.Attributes;
 
-namespace HaniaMapperSample
+namespace AutoIncluder.Models
 {
-  public class Author
-  {
-    public int Id { get; set; }
-    public string FullName { get; set; }
-    public string City { get; set; }
-    public ICollection<Book> Books { get; set; }
-
-  }
-}
-
-```
-
-
-#### Then Create Book ViewModel Class 
-##### Properties must also be the class name of the model 
-```csharp
-using System;
-
-namespace HaniaMapperSample
-{
-  public  class BookViewModel
-  {
-
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Discreption { get; set; }
-    public DateTime RegisterDate { get; set; }
-    public int AuthorId { get; set; }
-
-    public string AuthorFullName { get; set; }
-  }
-}
-
-```
-
-
-
-#### Then Create BookMapper Class
-
-```csharp
-using HaniaMapper.Mapper;
-using System;
-
-namespace HaniaMapperSample.Mapper
-{
-  public class BookMapper : MapperConfig<Book, BookViewModel>
-  {
-
-    public override Action<AmdMapperOption<Book, BookViewModel>> CreateConfig()
+    public class Author
     {
-      return config =>
-      {
-
-        //HaniaMapper Map Properties that have the same name as the model class
-        //For Extra Property You Can Use Bind Method In Config Action
-
-        config.Bind(x => x.AuthorFullName, c => { c.Map(v => v.Author.FullName); });
-
-      };
+        public int Id { get; set; }
+        public string Fullname { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public int Age { get; set; }
+        
+        [Include]
+        public ICollection<Book> Books { get; set; }
     }
-  }
 }
 
 ```
-#### Then Create Sample nContext Class For Test Data
+
+
+
+
+#### Now You Can use AuthInclude Exeption method To Include All Object
 ```csharp
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AutoIncluder.Data;
+using AutoIncluder.Models;
+using HaniaIncluder;
 
-namespace HaniaMapperSample.DateContext
+namespace AutoIncluder.Controllers
 {
-  public class BookContext
-  {
-    public Book Book()
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BooksController : ControllerBase
     {
-      return new Book
-      {
-        Discreption = "Descreption Of Book",
-        Title = "Book Title",
-        RegisterDate = DateTime.Now,
-        Id = 1,
-        AuthorId = 1,
-        Author = new Author
+        private readonly ApplicationDbContext _context;
+
+        public BooksController(ApplicationDbContext context)
         {
-          Id = 1,
-          City = "Urmia",
-          FullName = "Akbar Ahmadi Saray"
+            _context = context;
         }
-      };
+
+
+        // GET: api/Books
+        [HttpGet]
+        public IEnumerable<Book> GetBooks()
+        {
+            var books = _context.Books;
+        }
+        
+        
+        // GET: api/Books/AutoInclude
+        [HttpGet("AutoInclude")]
+        public IEnumerable<Book> GetBooksWithAutoInclude()
+        {
+            var books = _context.Books.AutoInclude();
+        }
+
+       
     }
-  }
-}
-
-```
-
-#### You Can Create New Object From BookMapper and Use it
-```csharp
-using HaniaMapperSample.DateContext;
-using HaniaMapperSample.Mapper;
-
-namespace HaniaMapperSample
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      BookContext _dbContext = new BookContext();
-      BookMapper mapper = new BookMapper(); 
-
-      Book book = _dbContext.Book();
-      BookViewModel bookViewModel = mapper.Map(book);
-
-      Console.WriteLine("------------------------Model------------------------");
-      Console.WriteLine(book.Title);
-      Console.WriteLine(book.Author.FullName);
-      Console.WriteLine("----------------------ViewModel-----------------------");
-      Console.WriteLine(bookViewModel.Title);
-      Console.WriteLine(bookViewModel.AuthorFullName);
-      Console.ReadKey();
-
-      // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
-    }
-  }
 }
 
       
 ```
 
-Result On Console
-```
-------------------------Model------------------------
+Result On Webs
+
+------------------------Request GET To '/api/Books'-------------------
+
+``` json
 Book Title
 Akbar Ahmadi Saray
-----------------------ViewModel-----------------------
+```
+
+-------------------Request GET To '/api/Books/AutoInclude'------------
+
+```
 Book Title
 Akbar Ahmadi Saray
 
