@@ -74,7 +74,7 @@ namespace AutoIncluder.Models
 
 
 
-#### Now You Can use AuthInclude Exeption method To Include All Object
+#### Now You Can use AutoInclude Extension Method To Include All Object
 ```csharp
 using System;
 using System.Collections.Generic;
@@ -113,6 +113,7 @@ namespace AutoIncluder.Controllers
         [HttpGet("AutoInclude")]
         public IEnumerable<Book> GetBooksWithAutoInclude()
         {
+            //Use AutoInclude() To Include All Object Have [Include] Attribute In Class
             var books = _context.Books.AutoInclude();
         }
 
