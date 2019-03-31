@@ -1,22 +1,22 @@
 # Hania.AutoIncluder
 
-[![Build status](https://ci.appveyor.com/api/projects/status/q261l3sbokafmx1o/branch/master?svg=true)](https://www.nuget.org/packages/HaniaMapper/)
-[![NuGet](http://img.shields.io/nuget/v/Hania.autoIncluder.svg)](https://www.nuget.org/packages/HaniaMapper/)
-[![Author](https://img.shields.io/badge/Author-Akbar%20Ahmadi%20Saray-brightgreen.svg)](https://www.nuget.org/packages/HaniaMapper/)
-[![Company](https://img.shields.io/badge/Company-Http%3A%2F%2FHaniaGroup.ir-orange.svg)](https://www.nuget.org/packages/HaniaMapper/)
+[![Build status](https://ci.appveyor.com/api/projects/status/q261l3sbokafmx1o/branch/master?svg=true)](https://www.nuget.org/packages/Hania.AutoIncluder/)
+[![NuGet](http://img.shields.io/nuget/v/Hania.autoIncluder.svg)](https://www.nuget.org/packages/Hania.AutoIncluder/)
+[![Author](https://img.shields.io/badge/Author-Akbar%20Ahmadi%20Saray-brightgreen.svg)](https://www.nuget.org/packages/Hania.AutoIncluder/)
+[![Company](https://img.shields.io/badge/Company-Http%3A%2F%2FHaniaGroup.ir-orange.svg)](https://www.nuget.org/packages/Hania.AutoIncluder/)
 
 
-### What is HaniaMapper?
+### What is Hania.AutoIncluder?
 
-HaniaMapper is a simple little library built to solve a deceptively complex problem - getting rid of code that mapped one object to another. This type of code is rather dreary and boring to write, so why not invent a tool to do it for us?
+Hania.AutoIncluder is a simple little library built to solve a Include Relative Data in Mvc Core EntityFrameWork
 
 
 ### Where can I get it?
 
-First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [HaniaMapper](https://www.nuget.org/packages/HaniaMapper/) from the package manager console:
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [Hania.AutoIncluder](https://www.nuget.org/packages/HaniaMapper/) from the package manager console:
 
 ```
-PM> Install-Package HaniaMapper 
+PM> Install-Package Hania.AutoIncluder 
 ```
 
 
