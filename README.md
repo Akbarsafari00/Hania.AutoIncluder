@@ -128,15 +128,31 @@ Result On Webs
 ------------------------Request GET To '/api/Books'-------------------
 
 ``` json
-Book Title
-Akbar Ahmadi Saray
+[{
+    "id":1,
+    "descreption":"This Book About c# Programing",
+    "title":"C# Programing",
+    "author":null,
+    "authorId":1
+}]
 ```
 
 -------------------Request GET To '/api/Books/AutoInclude'------------
 
-```
-Book Title
-Akbar Ahmadi Saray
+``` json
+[{
+    "id":1,
+    "descreption":"This Book About c# Programing",
+    "title":"C# Programing",
+    "author": {
+        "id":1,
+        "fullname":"Akbar Ahmadi Saray",
+        "address":"Iran - WestAzarbaijan - Urmia",
+        "phone":"+989371770774",
+        "age":22
+    },
+    "authorId":1
+}]
 
 ```
 Enjoy It :))))
