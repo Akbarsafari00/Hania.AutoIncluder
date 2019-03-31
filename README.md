@@ -105,7 +105,10 @@ namespace AutoIncluder.Controllers
         [HttpGet]
         public IEnumerable<Book> GetBooks()
         {
+        
             var books = _context.Books;
+            return books;
+            
         }
         
         
@@ -113,8 +116,11 @@ namespace AutoIncluder.Controllers
         [HttpGet("AutoInclude")]
         public IEnumerable<Book> GetBooksWithAutoInclude()
         {
+        
             //Use AutoInclude() To Include All Object Have [Include] Attribute In Class
             var books = _context.Books.AutoInclude();
+            return books;
+            
         }
 
        
